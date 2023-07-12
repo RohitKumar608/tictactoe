@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
+import Grid from './Grid'
+
 import { generateTicTacToeWinnerComb, getWinner } from '../utils'
 function createGridArr(num) {
   const gridArray = []
@@ -50,6 +52,7 @@ const TicTacToe = ({ row }) => {
   }
 
   const handleOnClick = (e) => {
+    console.log(e.target, '----')
     const value = +e.target.dataset.id
     if (state[value] || winner) {
       return
@@ -59,6 +62,7 @@ const TicTacToe = ({ row }) => {
     setStack([...stack, [...state]])
     noOfBoxChecked++
   }
+  console.log(state)
 
   return (
     <div className='game-container'>
@@ -88,27 +92,12 @@ const TicTacToe = ({ row }) => {
           </button>
         </div>
       )}
-      <div style={{ display: 'inline-flex', marginTop: '1rem' }}>
-        <div
-          onClick={handleOnClick}
-          style={{
-            display: 'grid',
-            gridTemplateColumns: `repeat(${row}, 1fr)`,
-          }}
-        >
-          {state.map((val, idx) => (
-            <button
-              key={idx}
-              className={`tictacktoe-btn ${
-                winnerArr.includes(idx) ? 'winner-grid' : ''
-              }`}
-              data-id={idx}
-            >
-              {val}
-            </button>
-          ))}
-        </div>
-      </div>
+      <Grid
+        handleOnClick={handleOnClick}
+        state={state}
+        winnerArr={winnerArr}
+        row={row}
+      />
       {winner && (
         <div className='winner-btn-container'>
           <button
