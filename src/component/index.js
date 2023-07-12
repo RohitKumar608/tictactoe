@@ -52,7 +52,6 @@ const TicTacToe = ({ row }) => {
   }
 
   const handleOnClick = (e) => {
-    console.log(e.target, '----')
     const value = +e.target.dataset.id
     if (state[value] || winner) {
       return
