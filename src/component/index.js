@@ -34,7 +34,7 @@ const TicTacToe = ({ row }) => {
     if (!winner && noOfBoxChecked === row * row) {
       setWinnerDetails({ result: 'Tie' })
     }
-  }, [winner])
+  }, [winner, row, idx])
 
   const handleNextPrevMov = (param) => {
     setCurrentIdx(currentIdx + param)
