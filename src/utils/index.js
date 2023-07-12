@@ -41,3 +41,11 @@ export function getWinner(state, winnerCombArr) {
 
   return { winner, idx: winnerIdx }
 }
+
+export function createGridArr(num) {
+  const gridArray = []
+  for (let i = 0; i < num; i++) {
+    gridArray[i] = ''
+  }
+  return gridArray
+}

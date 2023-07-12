@@ -1,14 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 import Grid from './Grid'
+import Winner from './Winner'
+import Tie from './Tie'
+import Replay from './Replay'
 
-import { generateTicTacToeWinnerComb, getWinner } from '../utils'
-function createGridArr(num) {
-  const gridArray = []
-  for (let i = 0; i < num; i++) {
-    gridArray[i] = ''
-  }
-  return gridArray
-}
+import { generateTicTacToeWinnerComb, getWinner, createGridArr } from '../utils'
+
 var noOfBoxChecked = 0
 
 const TicTacToe = ({ row }) => {
@@ -61,60 +58,28 @@ const TicTacToe = ({ row }) => {
     setStack([...stack, [...state]])
     noOfBoxChecked++
   }
-  console.log(state)
 
   return (
     <div className='game-container'>
-      {!winner && noOfBoxChecked === row * row && (
-        <div>
-          <h2>The Match is Tie</h2>
-          <button className='submit' onClick={handleResetGame}>
-            {' '}
-            Restart
-          </button>
-        </div>
-      )}
-      {winner && (
-        <>
-          <div class='firework'></div>
-          <div class='firework'></div>
-          <div class='firework'></div>
-        </>
-      )}
-
-      {winner && (
-        <div>
-          <h2>{`The winner of the Game is ${winner}`}</h2>
-          <button className='submit' onClick={handleResetGame}>
-            {' '}
-            Restart
-          </button>
-        </div>
-      )}
+      <Tie
+        winner={winner}
+        row={row}
+        handleResetGame={handleResetGame}
+        noOfBoxChecked={noOfBoxChecked}
+      />
+      <Winner winner={winner} handleResetGame={handleResetGame} />
       <Grid
         handleOnClick={handleOnClick}
         state={state}
         winnerArr={winnerArr}
         row={row}
       />
-      {winner && (
-        <div className='winner-btn-container'>
-          <button
-            onClick={() => handleNextPrevMov(-1)}
-            disabled={currentIdx === 0}
-            className='submit'
-          >
-            Previous
-          </button>
-          <button
-            className='submit'
-            disabled={stack.length - 1 === currentIdx}
-            onClick={() => handleNextPrevMov(1)}
-          >
-            Next
-          </button>
-        </div>
-      )}
+      <Replay
+        winner={winner}
+        handleNextPrevMov={handleNextPrevMov}
+        currentIdx={currentIdx}
+        stack={stack}
+      />
     </div>
   )
 }
