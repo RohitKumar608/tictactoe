@@ -30,6 +30,7 @@ const TicTacToe = ({ row }) => {
   useEffect(() => {
     if (winner) {
       setWinnerDetails({ result: 'Win', idx: idx, winner: winner })
+      document.querySelector('body').classList.add('firework_background')
     }
     if (!winner && noOfBoxChecked === row * row) {
       setWinnerDetails({ result: 'Tie' })
@@ -46,6 +47,7 @@ const TicTacToe = ({ row }) => {
     setCurrentIdx(0)
     setStack([])
     setWinnerDetails('')
+    document.querySelector('body').classList.remove('firework_background')
   }
 
   const handleOnClick = (e) => {
